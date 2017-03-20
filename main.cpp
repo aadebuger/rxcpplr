@@ -14,13 +14,30 @@ using namespace std::chrono;
 
 int main()
 {
+    auto rangeObservable = range(10, 5);
+    rangeObservable.map([](int i) {
+      
+        //  std::stringstream serializer;
+      //  serializer << i;
+      //  return serializer.str();
+        return i;
+    })
+    .subscribe([](int val) {
+        std::cout << "tick " << val << std::endl;
+    });
+   //  rangeObservable.
+}
+int main1()
+{
     random_device rd;   // non-deterministic generator
     mt19937 gen(rd());
     uniform_int_distribution<> dist(4, 18);
 
+    std::cout<<"start"<<std::endl;
     // for testing purposes, produce byte stream that from lines of text
     auto bytes = range(0, 10) |
         flat_map([&](int i){
+            std::cout<< i<<std::endl;
             auto body = from((uint8_t)('A' + i)) |
                 repeat(dist(gen)) |
                 as_dynamic();
@@ -44,6 +61,9 @@ int main()
             cout << endl;
         });
 
+    
+  //  std::cout<< "stream="<<bytes<<std::endl;
+    
     //
     // recover lines of text from byte stream
     //
