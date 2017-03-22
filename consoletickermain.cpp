@@ -6,6 +6,7 @@ int main()
     
     auto ticker = rxcpp::Interval( std::chronos::milliseconds(250),scheduler);
     
+    
     rxcpp::from(ticker)
     .where([](int val) { return val % 2 == 0; })
     .take(10)
